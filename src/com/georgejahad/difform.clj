@@ -14,7 +14,6 @@
 (ns com.georgejahad.difform
   (:import name.fraser.neil.plaintext.diff_match_patch$Operation
            name.fraser.neil.plaintext.diff_match_patch)
-  (:require [clojure.contrib.str-utils2 :as s])
   (:use clojure.walk))
 
 (defn require-contrib []
@@ -51,8 +50,8 @@
 
 (defn- print-diff [d]
   (let [m (diff-markers (.operation d)) ]
-    (println (str " " m) (s/replace (.trim (.text d))
-                                    #"\n" (str "\n " m " ")))))
+    (println (str " " m) (.replaceAll (.trim (.text d))
+                                    "\n" (str "\n " m " ")))))
 (defn canonical-form [f]
   (with-out-str (pprint/pprint (sort-form f))))
 
